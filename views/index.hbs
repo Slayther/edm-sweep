@@ -1,0 +1,45 @@
+<div class="jumbotron">
+    <h1>Ending Soon</h1>
+    <p>{{endingSoon}}</p>
+
+    <div id="clockdiv">
+
+        <div>
+            <span class="days">days</span> days,
+            <span class="hours">hours</span> hours,
+            <span class="minutes">minutes</span> minutes,
+            <span class="seconds">seconds</span> seconds
+        </div>
+    </div>
+    <a href="https://www.hive.co/contests/contest/4201/spotlight/" class="btn btn-info">Enter Now</a>
+</div>
+
+
+
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Contest Name</th>
+        <th>Contest Link</th>
+        <th>End Date</th>
+        <th>End Time</th>
+    </tr>
+
+    {{#each contest}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td><a href="/admin/view-contact/{{this.id}}">{{this.contestName}}</a></td>
+            <td>{{this.contestLink}}</td>
+            <td>{{this.endDate}}</td>
+            <td>{{this.endTime}}</td>
+        </tr>
+    {{/each}}
+</table>
+<br>
+
+
+
+<!--<script src="/javascripts/test.js"></script>-->
+<script src="/javascripts/countdown.js"></script>
+
+

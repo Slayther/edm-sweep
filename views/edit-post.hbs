@@ -1,0 +1,29 @@
+
+<!--form-->
+<div class="col-md-6">
+    <h1>Edit Post</h1>
+    <form action="/admin/edit-post/{{this.id}}" method="POST">
+        <!--name-->
+        <div class="form-group">
+            <label for="contestName">Contest Name</label>
+            <input type="text" class="form-control" id="contestName" value="{{this.contestName}}" name="contestName">
+        </div>
+        <!--link-->
+        <div class="form-group">
+            <label for="contestLink">Contest Link</label>
+            <input type="text" class="form-control" id="contestLink" value="{{this.contestLink}}" name="contestLink">
+        </div>
+        <!--end date-->
+        <div class="form-group">
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" id="endDate" value="{{this.endDate}}" name="endDate">
+        </div>
+        <div class="form-group">
+            <label for="endTime">End Time</label>
+            <input type="time" class="form-control" id="endTime" value="{{this.endTime}}" name="endTime">
+        </div>
+
+
+        <input type="submit" value="Submit">
+    </form>
+</div>

@@ -1,0 +1,23 @@
+<p>hello from view contacts</p>
+<p>contacts:</p>
+
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+    </tr>
+
+    {{#each contact}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td><a href="/admin/view-contact/{{this.id}}">{{this.subject}}</a></td>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.message}}</td>
+        </tr>
+    {{/each}}
+</table>
+<br>
