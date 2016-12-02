@@ -21,8 +21,7 @@
         <th>ID</th>
         <th>Contest Name</th>
         <th>Contest Link</th>
-        <th>End Date</th>
-        <th>End Time</th>
+        <th>Contest End</th>
     </tr>
 
     {{#each contest}}
@@ -30,8 +29,7 @@
             <td>{{this.id}}</td>
             <td><a href="/admin/view-contact/{{this.id}}">{{this.contestName}}</a></td>
             <td>{{this.contestLink}}</td>
-            <td>{{this.endDate}}</td>
-            <td>{{this.endTime}}</td>
+            <td>{{this.contestEnd}}</td>
         </tr>
     {{/each}}
 </table>

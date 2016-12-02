@@ -47,3 +47,17 @@ visibility: visible;
 -ms-transform: scaleX(1);
 transform: scaleX(1);
 }
+
+* {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.cropit-preview {
+    /* You can specify preview size in CSS */
+    width: 200px;
+    height: 200px;
+}
+#image-cropper{
+    width: 200px
+}

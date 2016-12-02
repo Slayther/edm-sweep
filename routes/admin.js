@@ -1,21 +1,25 @@
+//admin.js
+
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
 const passport = require('passport');
 require('../auth');
 
-/* GET home page. */
+
 router.use( (req,res,next) =>{
     if(!req.user){
-        // res.redirect('/');
-        res.render('admin-login');
+        res.redirect('/admin');
+        // res.render('admin-login');
     }
-    next();
+    if(req.isAuthenticated()){
+        return next();
+    }
 });
 
-// router.get('/login', (req,res) => {
-//     res.render('admin-login');
-// })
+router.get('/', (req,res) => {
+    res.render('admin-login');
+})
 
 router.get('/portal', (req,res) =>{
     models.Contest.getContests()
@@ -24,17 +28,14 @@ router.get('/portal', (req,res) =>{
         });
 });
 
-// router.get('/', function(req, res, next) {
-//     // res.render('admin-login', {});
-//     res.render('admin', {});
-// });
-
 router.post('/', passport.authenticate(
     'local',
     {
         successRedirect: '/admin/portal',
 
-        failureRedirect: '/admin'
+        failureRedirect: '/admin',
+
+        failureFlash: true
     })
 );
 
@@ -57,33 +58,29 @@ router.post('/edit-post/:id', (req,res) => {
     const id = req.params.id;
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
-    const endDate = req.body.endDate;
-    const endTime = req.body.endTime;
+    const contestEnd = req.body.contestEnd;
 
 
     const editContest = new models.Contest({
         id: id,
         contestName: contestName,
         contestLink: contestLink,
-        endDate: endDate,
-        endTime: endTime
+        contestEnd: contestEnd
     });
     editContest.editTodB();
-    res.send('hello from edit-post');
+    res.redirect('/admin/portal');
 })
 
 router.post('/new-post', (req,res) =>{
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
-    const endDate = req.body.endDate;
-    const endTime = req.body.endTime;
+    const contestEnd = req.body.contestEnd;
 
 
     const newContest = new models.Contest({
         contestName: contestName,
         contestLink: contestLink,
-        endDate: endDate,
-        endTime: endTime
+        contestEnd: contestEnd
     });
     console.log(newContest);
 

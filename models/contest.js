@@ -10,8 +10,7 @@ class Contest{
 
         this.contestName = data.contestName;
         this.contestLink = data.contestLink;
-        this.endDate = data.endDate;
-        this.endTime = data.endTime;
+        this.contestEnd = data.contestEnd;
     }
 
     saveToDB(){
@@ -34,6 +33,7 @@ class Contest{
             });
     }
 
+    //Pulls all contests
     static getContests(){
         return db('Contest')
             .orderBy('id', 'desc')
@@ -45,14 +45,16 @@ class Contest{
             });
     }
 
-    //not working
+    //Pulls all contests that have not yet expired
     static getOngoingContests(){
 
-        const now = new Date(Date.now());
+        var now = new Date().toISOString().slice(0,16) .replace(/T/g, " ");
+
         return db('Contest')
-            .where('endDate', '>', now)
+            .where('contestEnd' ,'>', now)
             .then( (contestsData) =>{
                 return contestsData.map( (contestData) =>{
+                    console.log(contestsData);
                     console.log(contestData);
                     console.log(now);
                     return new Contest(contestData);
@@ -60,6 +62,7 @@ class Contest{
             });
     }
 
+    //pulls a single contest by their id
     static getContestById(id){
         return db('Contest')
             .where('id', id)

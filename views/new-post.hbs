@@ -1,6 +1,5 @@
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="screen"
-      href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/themes/material_blue.css" />
 
 <!--form-->
 <div class="col-md-6">
@@ -17,32 +16,83 @@
             <input type="text" class="form-control" id="contestLink" placeholder="Contest Link" name="contestLink">
         </div>
         <!--end date-->
-
-        <div id="datetimepicker" class="input-append date">
-            <input type="text"></input>
-            <span class="add-on">
-        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-      </span>
+        <div class="form-group">
+            <label for="contestName">Contest End Date/Time</label>
+            <input class=" form-control flatpickr" type="text" placeholder="Select Date.." name="contestEnd">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit">
         </div>
 
-        <script type="text/javascript"
-                src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-        </script>
-        <script type="text/javascript"
-                src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-        </script>
-        <script type="text/javascript"
-                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-        </script>
-        <script type="text/javascript"
-                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-        </script>
-        <script type="text/javascript">
-            $('#datetimepicker').datetimepicker({
-                format: 'dd/MM/yyyy hh:mm:ss',
-                language: 'pt-EN'
-            });
-        </script>
+
+        <!-- This wraps the whole cropper -->
+        <div class="form-group">
+            <div id="image-cropper">
+                <!-- This is where the preview image is displayed -->
+                <div class="cropit-preview"></div>
+
+                <!-- This range input controls zoom -->
+                <!-- You can add additional elements here, e.g. the image icons -->
+                <input type="range" class="cropit-image-zoom-input"/>
+
+                <!-- This is where user selects new image -->
+                <input type="file" class="cropit-image-input"/>
+
+                <!-- The cropit- classes above are needed
+                     so cropit can identify these elements -->
+            </div>
+        </div>
+
+
+
+
 
     </form>
+
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.cropit/0.5.1/jquery.cropit.js"></script>
+
+<script>
+    $('#image-cropper').cropit();
+
+    // In the demos I'm passing in an imageState option
+    // so it renders an image by default:
+    // $('#image-cropper').cropit({ imageState: { src: { imageSrc } } });
+
+    // Exporting cropped image
+    $('.download-btn').click(function() {
+        var imageData = $('#image-cropper').cropit('export');
+        window.open(imageData);
+    });
+
+    $('form').submit(function() {
+        // Move cropped image data to hidden input
+        var imageData = $('.image-editor').cropit('export');
+        $('.hidden-image-data').val(imageData);
+
+        // Print HTTP request params
+        var formValue = $(this).serialize();
+        $('#result-data').text(formValue);
+
+        // Prevent the form from actually submitting
+        return false;
+    });
+
+    var decoded = decodeURIComponent(require('url').parse(img, true).path.replace(/\++/g, ' '))//base64url.decode(img);
+    var exp = decoded.split(',');
+    var base64 = exp.shift();
+    var data = base64url.decode(base64);
+    var data_c = data.replace('data:image/jpeg;base64,','')
+    var buffer = new Buffer(data_c, 'base64');
+    fs.writeFileSync('/public/woo.jpg', buffer);
+</script>
+
+<script>flatpickr(".flatpickr",{
+    enableTime: true
+});</script>

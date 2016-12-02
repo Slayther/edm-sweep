@@ -1,3 +1,6 @@
+//server.js
+
+// set up ==============================================================================================================
 var express = require('express');
 const http = require('http');
 var path = require('path');
@@ -10,14 +13,17 @@ const passport = require('passport');
 const session = require('express-session');
 require('./auth');
 
+// routes ==============================================================================================================
+
 var index = require('./routes/index');
 const socialMedia = require('./routes/social-media');
 const contactUs = require('./routes/contact-us');
 const admin = require('./routes/admin');
-const models = require('./models');
 
+const models = require('./models');
 var app = express();
 
+//config ===============================================================================================================
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -39,10 +45,16 @@ app.use(passport.session());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// use routes ==========================================================================================================
+
 app.use('/', index);
 app.use('/social-media', socialMedia);
 app.use('/contact-us', contactUs);
 app.use('/admin', admin);
+
+
+// error handling ======================================================================================================
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,6 +75,8 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// launch ==============================================================================================================
 
 http.createServer(app).listen(8080, () => {
     console.log('Express server listening on port 8080');
