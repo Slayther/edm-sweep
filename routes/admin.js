@@ -6,26 +6,13 @@ const models = require('../models');
 const passport = require('passport');
 require('../auth');
 
-
 router.use( (req,res,next) =>{
     if(!req.user){
-        res.redirect('/admin');
+        res.redirect('/login');
+        return;
         // res.render('admin-login');
     }
-    if(req.isAuthenticated()){
-        return next();
-    }
-});
-
-router.get('/', (req,res) => {
-    res.render('admin-login');
-})
-
-router.get('/portal', (req,res) =>{
-    models.Contest.getContests()
-        .then( (contestData) =>{
-            res.render('admin', {contest:contestData})
-        });
+    next();
 });
 
 router.post('/', passport.authenticate(
@@ -33,11 +20,37 @@ router.post('/', passport.authenticate(
     {
         successRedirect: '/admin/portal',
 
-        failureRedirect: '/admin',
+        failureRedirect: '/login',
 
         failureFlash: true
     })
 );
+
+router.use( (req,res,next) =>{
+    if(!req.user){
+        res.redirect('/login');
+        return;
+        // res.render('admin-login');
+    }
+    next();
+});
+
+router.use('/', (req,res) =>{
+    res.render('admin');
+})
+
+// router.get('/', (req,res) => {
+//     res.render('admin-login');
+// })
+
+// router.get('/portal', (req,res) =>{
+//     models.Contest.getContests()
+//         .then( (contestData) =>{
+//             res.render('admin', {contest:contestData})
+//         });
+// });
+
+
 
 router.get('/new-post', (req,res) => {
     res.render('new-post');

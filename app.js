@@ -18,7 +18,9 @@ require('./auth');
 var index = require('./routes/index');
 const socialMedia = require('./routes/social-media');
 const contactUs = require('./routes/contact-us');
+const login = require('./routes/login');
 const admin = require('./routes/admin');
+
 
 const models = require('./models');
 var app = express();
@@ -51,7 +53,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/social-media', socialMedia);
 app.use('/contact-us', contactUs);
+app.use('/login', login);
 app.use('/admin', admin);
+
 
 
 // error handling ======================================================================================================
