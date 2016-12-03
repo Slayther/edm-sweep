@@ -1,30 +1,23 @@
 //admin.js
 
+// Requires =====================================
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const models = require('../models');
-const passport = require('passport');
 require('../auth');
+
+// Routes =======================================
 
 router.get('/', (req,res) => {
     res.render('admin-login');
-})
-
-router.use( (req,res,next) =>{
-    if(!req.user){
-        res.redirect('/login');
-        return;
-        // res.render('admin-login');
-    }
-    next();
 });
 
-
-
+// Checks to see if user successfully logged in with authentication
 router.post('/', passport.authenticate(
     'local',
     {
-        successRedirect: '/admin/portal',
+        successRedirect: '/admin',
 
         failureRedirect: '/login',
 

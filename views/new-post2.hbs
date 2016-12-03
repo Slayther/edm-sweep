@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/themes/material_blue.css" />
+
+<!--form-->
+<div class="col-md-6">
+    <h1>New Post</h1>
+    <form action="/admin/new-post" method="POST" enctype="multipart/form-data">
+        <!--name-->
+        <div class="form-group">
+            <label for="contestName">Contest Name</label>
+            <input type="text" class="form-control" id="contestName" placeholder="Contest Name" name="contestName">
+        </div>
+        <!--link-->
+        <div class="form-group">
+            <label for="contestLink">Contest Link</label>
+            <input type="text" class="form-control" id="contestLink" placeholder="Contest Link" name="contestLink">
+        </div>
+        <!--end date-->
+        <div class="form-group">
+            <label for="contestName">Contest End Date/Time</label>
+            <input class=" form-control flatpickr" type="text" placeholder="Select Date.." name="contestEnd">
+        </div>
+        <!--image-->
+        <div class="form-group">
+            <label for="contestImage">Upload Image</label>
+            <input type="file" name="contestImage">
+        </div>
+        <!--submit-->
+        <div class="form-group">
+            <input type="submit" value="Submit">
+        </div>
+
+
+
+
+
+
+
+    </form>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+
+<script>flatpickr(".flatpickr",{
+    enableTime: true
+});</script>

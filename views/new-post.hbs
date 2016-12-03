@@ -1,98 +1,30 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/themes/material_blue.css" />
-
-<!--form-->
-<div class="col-md-6">
-    <h1>New Post</h1>
-    <form action="/admin/new-post" method="POST">
-        <!--name-->
-        <div class="form-group">
-            <label for="contestName">Contest Name</label>
-            <input type="text" class="form-control" id="contestName" placeholder="Contest Name" name="contestName">
-        </div>
-        <!--link-->
-        <div class="form-group">
-            <label for="contestLink">Contest Link</label>
-            <input type="text" class="form-control" id="contestLink" placeholder="Contest Link" name="contestLink">
-        </div>
-        <!--end date-->
-        <div class="form-group">
-            <label for="contestName">Contest End Date/Time</label>
-            <input class=" form-control flatpickr" type="text" placeholder="Select Date.." name="contestEnd">
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Submit">
-        </div>
-
-
-        <!-- This wraps the whole cropper -->
-        <div class="form-group">
-            <div id="image-cropper">
-                <!-- This is where the preview image is displayed -->
-                <div class="cropit-preview"></div>
-
-                <!-- This range input controls zoom -->
-                <!-- You can add additional elements here, e.g. the image icons -->
-                <input type="range" class="cropit-image-zoom-input"/>
-
-                <!-- This is where user selects new image -->
-                <input type="file" class="cropit-image-input"/>
-
-                <!-- The cropit- classes above are needed
-                     so cropit can identify these elements -->
-            </div>
-        </div>
 
 
 
+<form id="form">
+    <h1>Client-side image-editor and uploader</h1>
+    <h2>Image file select</h2>
+    <input id="file" type="file" />
+    <h2>Image cropper (Jcrop)</h2>
+    <button id="cropbutton" type="button">Crop</button>
+    <button id="scalebutton" type="button">Scale</button>
+    <button id="rotatebutton" type="button">Rotate</button>
+    <button id="hflipbutton" type="button">H-flip</button>
+    <button id="vflipbutton" type="button">V-flip</button>
+    <br>
+    <div id="views"></div>
+    <h2>Submit form</h2>
+    <input type="submit" value="Upload form data and image" />
+</form>
 
 
-    </form>
 
-</div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.js"></script>
+<script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.cropit/0.5.1/jquery.cropit.js"></script>
+<script src="/javascripts/image-cropper.js"></script>
 
-<script>
-    $('#image-cropper').cropit();
+<link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css">
 
-    // In the demos I'm passing in an imageState option
-    // so it renders an image by default:
-    // $('#image-cropper').cropit({ imageState: { src: { imageSrc } } });
-
-    // Exporting cropped image
-    $('.download-btn').click(function() {
-        var imageData = $('#image-cropper').cropit('export');
-        window.open(imageData);
-    });
-
-    $('form').submit(function() {
-        // Move cropped image data to hidden input
-        var imageData = $('.image-editor').cropit('export');
-        $('.hidden-image-data').val(imageData);
-
-        // Print HTTP request params
-        var formValue = $(this).serialize();
-        $('#result-data').text(formValue);
-
-        // Prevent the form from actually submitting
-        return false;
-    });
-
-    var decoded = decodeURIComponent(require('url').parse(img, true).path.replace(/\++/g, ' '))//base64url.decode(img);
-    var exp = decoded.split(',');
-    var base64 = exp.shift();
-    var data = base64url.decode(base64);
-    var data_c = data.replace('data:image/jpeg;base64,','')
-    var buffer = new Buffer(data_c, 'base64');
-    fs.writeFileSync('/public/woo.jpg', buffer);
-</script>
-
-<script>flatpickr(".flatpickr",{
-    enableTime: true
-});</script>

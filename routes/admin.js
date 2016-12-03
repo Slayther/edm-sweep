@@ -1,58 +1,45 @@
 //admin.js
 
+// Requires =====================================
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const models = require('../models');
-const passport = require('passport');
-require('../auth');
+const sharp = require('sharp');
+const stream = require('stream');
+const multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images/uploads/contests/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '.jpg') //Appending .jpg
+    }
+})
+const upload = multer({
+    dest: './public/images/uploads/contests/'
+});
 
+// Routes =======================================
+// Requires that user be logged in to see any content on this route
 router.use( (req,res,next) =>{
     if(!req.user){
+        console.log('redirecting to: ');
         res.redirect('/login');
         return;
-        // res.render('admin-login');
     }
     next();
 });
 
-router.post('/', passport.authenticate(
-    'local',
-    {
-        successRedirect: '/admin/portal',
+// *GET* Routes =======================================
 
-        failureRedirect: '/login',
+router.get('/', (req,res) =>{
 
-        failureFlash: true
-    })
-);
-
-router.use( (req,res,next) =>{
-    if(!req.user){
-        res.redirect('/login');
-        return;
-        // res.render('admin-login');
-    }
-    next();
-});
-
-router.use('/', (req,res) =>{
     res.render('admin');
 })
 
-// router.get('/', (req,res) => {
-//     res.render('admin-login');
-// })
-
-// router.get('/portal', (req,res) =>{
-//     models.Contest.getContests()
-//         .then( (contestData) =>{
-//             res.render('admin', {contest:contestData})
-//         });
-// });
-
-
-
 router.get('/new-post', (req,res) => {
+    console.log('test from new post')
     res.render('new-post');
 });
 
@@ -67,6 +54,23 @@ router.get('/edit-post/:id', (req,res) => {
 
 });
 
+router.get('/view-contact', (req,res) =>{
+    models.Contact.getContact()
+        .then( (contact) =>{
+            res.render('view-contact', {contact: contact});
+        });
+})
+
+router.get('/view-contact/:id', (req,res) =>{
+    const id = req.params.id;
+    models.Contact.getContactById(id)
+        .then( (contact) =>{
+            console.log(contact);
+            res.render('view-contact-single', contact);
+        });
+})
+
+// *POST* Routes =======================================
 router.post('/edit-post/:id', (req,res) => {
     const id = req.params.id;
     const contestName = req.body.contestName;
@@ -84,7 +88,8 @@ router.post('/edit-post/:id', (req,res) => {
     res.redirect('/admin/portal');
 })
 
-router.post('/new-post', (req,res) =>{
+router.post('/new-post', upload.single('contestImage'), (req,res) =>{
+    console.log(req.body);
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
     const contestEnd = req.body.contestEnd;
@@ -99,24 +104,12 @@ router.post('/new-post', (req,res) =>{
 
     newContest.saveToDB();
 
+
     res.send('hello from post new-post');
 })
 
-router.get('/view-contact', (req,res) =>{
-    models.Contact.getContact()
-        .then( (contact) =>{
-            res.render('view-contact', {contact: contact});
-        });
-})
+// TESTING =================================================
 
-router.get('/view-contact/:id', (req,res) =>{
-    const id = req.params.id;
-    models.Contact.getContactById(id)
-        .then( (contact) =>{
-            console.log(contact);
-            res.render('view-contact-single', contact);
-        });
-})
 
 
 
