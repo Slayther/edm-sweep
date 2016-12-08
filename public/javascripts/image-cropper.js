@@ -182,6 +182,7 @@ $("#form").submit(function(e) {
         processData: false,
         success: function(data) {
             // alert("Success");
+            window.location = '/admin';
             console.log('Image uploaded');
         },
         error: function(data) {
