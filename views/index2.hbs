@@ -27,7 +27,24 @@
             </div>
         </div>
     </div>
+
 </div>
+    <div class="row">
+
+        {{#each contest}}
+            <div class="col-lg-3 col-md-4 col-md-6 col-sm-12">
+
+                {{this.contestName}}
+                    <a href="#" class="hovereffect">
+                        <img class="img-responsive portfolio-item img hovereffect" src="{{this.contestImage}}" alt="" width="300" >
+                    </a>
+
+            </div>
+        {{/each}}
+
+    </div>
+
+
 
 
 

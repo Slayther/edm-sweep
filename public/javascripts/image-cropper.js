@@ -1,7 +1,7 @@
 
 
-var crop_max_width = 200;
-var crop_max_height = 200;
+var crop_max_width = 500;
+var crop_max_height = 400;
 var jcrop_api;
 var canvas;
 var context;
@@ -18,6 +18,7 @@ function loadImage(input) {
         var reader = new FileReader();
         canvas = null;
         reader.onload = function(e) {
+
             image = new Image();
             image.onload = validateImage;
             image.src = e.target.result;
@@ -73,13 +74,16 @@ function restartJcrop() {
     context = canvas.getContext("2d");
     canvas.width = image.width;
     canvas.height = image.height;
-    context.drawImage(image, 0, 0);
+    context.drawImage(image,0 ,0 );
     $("#canvas").Jcrop({
         onSelect: selectcanvas,
+        // bgColor: 'black',
         onRelease: clearcanvas,
+        // trueSize: [1000,600],
+
         boxWidth: crop_max_width,
         boxHeight: crop_max_height,
-        aspectRatio: 1
+        aspectRatio: 5/4,
     }, function() {
         jcrop_api = this;
     });
@@ -103,14 +107,16 @@ function selectcanvas(coords) {
     prefsize = {
         x: Math.round(coords.x),
         y: Math.round(coords.y),
-        w: size,
-        h: size
+        w: width,
+        h: height
     };
 }
 
 function applyCrop() {
     canvas.width = prefsize.w;
     canvas.height = prefsize.h;
+    canvas.width = 500;
+    canvas.height = 400;
     context.drawImage(image, prefsize.x, prefsize.y, prefsize.w, prefsize.h, 0, 0, canvas.width, canvas.height);
     validateImage();
 }
@@ -167,6 +173,7 @@ $("#vflipbutton").click(function(e) {
 });
 
 $("#form").submit(function(e) {
+    applyCrop();
     e.preventDefault();
     formData = new FormData($(this)[0]);
     var blob = dataURLtoBlob(canvas.toDataURL(image.mimeType));
