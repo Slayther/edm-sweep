@@ -1,0 +1,23 @@
+<a href="/admin/new-post" class="btn btn-success" role="button">New Post</a>
+<a href="/admin/view-contact" class="btn btn-success" role="button">View Contacts</a>
+<br>
+<br>
+<table style="width:100%">
+    <tr>
+        <th>ID</th>
+        <th>Contest Name</th>
+        <th>Contest Link</th>
+        <th>Contest End Date/Time</th>
+    </tr>
+
+    {{#each contest}}
+        <tr>
+            <td><a href="/admin/edit-post/{{this.id}}">{{this.id}}</a></td>
+            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestName}}</a></td>
+            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestLink}}</a></td>
+            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestEnd}}</a></td>
+        </tr>
+    {{/each}}
+</table>
+<br>
+

@@ -1,25 +1,106 @@
-<a href="/admin/new-post" class="btn btn-success" role="button">New Post</a>
-<a href="/admin/view-contact" class="btn btn-success" role="button">View Contacts</a>
-<br>
-<br>
-<table style="width:100%">
-    <tr>
-        <th>ID</th>
-        <th>Contest Name</th>
-        <th>Contest Link</th>
-        <th>Contest End Date/Time</th>
-    </tr>
+<!-- Bootstrap Core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    {{#each contest}}
-        <tr>
-            <td><a href="/admin/edit-post/{{this.id}}">{{this.id}}</a></td>
-            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestName}}</a></td>
-            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestLink}}</a></td>
-            <td><a href="/admin/edit-post/{{this.id}}">{{this.contestEnd}}</a></td>
-        </tr>
-    {{/each}}
-</table>
-<br>
+<!-- MetisMenu CSS -->
+<link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-<img src="/public/images/uploads/contests/142db64b58f5e87e0f33dd6a14022a7c" alt="">
-<a href="/public/images/uploads/contests/142db64b58f5e87e0f33dd6a14022a7c">c</a>
+<!-- Custom CSS -->
+<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<div id="page-wrapper">
+
+    <!-------header------->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Dashboard</h1>
+        </div>
+    </div>
+
+    <!------- block info------->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">26</div>
+                            <div>New Comments!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!--new contact requests-->
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">12</div>
+                            <div>New Tasks!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Week</a>
+                                    </li>
+                                    <li><a href="#">Month</a>
+                                    </li>
+                                    <li><a href="#">Year</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="morris-area-chart"></div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

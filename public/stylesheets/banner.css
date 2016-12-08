@@ -1,0 +1,9 @@
+.banner{
+    /*background: black;*/
+    background-image: url("/images/edm-raves-banner.png");
+
+    font-family: Helvetica, Arial, sans-serif;
+    color: white;
+    /*-webkit-text-stroke-width: 1px;*/
+    /*-webkit-text-stroke-color: black;*/
+}

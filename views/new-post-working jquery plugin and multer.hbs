@@ -20,8 +20,15 @@
             <input class=" form-control flatpickr" type="text" placeholder="Select Date.." name="contestEnd">
         </div>
         <!--image-->
-        <input id="file" type="file" name="contestImage"/>
-
+        <input id="file" type="file" />
+        <h2>Image cropper (Jcrop)</h2>
+        <button id="cropbutton" type="button">Crop</button>
+        <button id="scalebutton" type="button">Scale</button>
+        <button id="rotatebutton" type="button">Rotate</button>
+        <button id="hflipbutton" type="button">H-flip</button>
+        <button id="vflipbutton" type="button">V-flip</button>
+        <br>
+        <div id="views"></div>
         <h2>Submit form</h2>
         <input type="submit" value="Submit" />
     </form>
@@ -36,9 +43,9 @@
 <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 
 
-<!--<script src="/javascripts/image-cropper.js"></script>-->
+<script src="/javascripts/image-cropper.js"></script>
 
-<!--<link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css">-->
+<link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css">
 
 
 <script>flatpickr(".flatpickr",{

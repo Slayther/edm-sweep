@@ -7,40 +7,48 @@ const router = express.Router();
 const models = require('../models');
 const sharp = require('sharp');
 const stream = require('stream');
+// const crop = require('cropit');
 const multer = require('multer');
+// require('cropit');
 var storage = multer.diskStorage({
+
     destination: function (req, file, cb) {
         cb(null, './public/images/uploads/contests/')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '.jpg') //Appending .jpg
+        console.log(file);
+        console.log(req.file);
+        cb(null, Date.now() + '.png' ) //Appending .jpg
     }
 })
-const upload = multer({
-    dest: './public/images/uploads/contests/'
+
+var upload = multer({
+    storage: storage,
 });
 
 // Routes =======================================
 // Requires that user be logged in to see any content on this route
-router.use( (req,res,next) =>{
-    if(!req.user){
-        console.log('redirecting to: ');
-        res.redirect('/login');
-        return;
-    }
-    next();
-});
+// router.use( (req,res,next) =>{
+//     if(!req.user){
+//         console.log('redirecting to: ');
+//         res.redirect('/login');
+//         return;
+//     }
+//     next();
+// });
+
 
 // *GET* Routes =======================================
 
 router.get('/', (req,res) =>{
 
-    res.render('admin');
+    res.render('admin', {layout: './layouts/admin-layout'});
 })
 
 router.get('/new-post', (req,res) => {
     console.log('test from new post')
-    res.render('new-post');
+    res.render('new-post-working jquery plugin and multer');
+    // res.redirect('/');
 });
 
 router.get('/edit-post/:id', (req,res) => {
@@ -87,28 +95,55 @@ router.post('/edit-post/:id', (req,res) => {
     editContest.editTodB();
     res.redirect('/admin/portal');
 })
+// router.post('/new-post', upload.single('contestImage'), (req,res) =>{
+// // router.post('/new-post', (req,res) =>{
+// //     console.log(req.file.mimeType);
+//
+//     const contestName = req.body.contestName;
+//     const contestLink = req.body.contestLink;
+//     const contestEnd = req.body.contestEnd;
+//     const contestImage = req.body.contestImage;
+//
+//     const newContest = new models.Contest({
+//         contestName: contestName,
+//         contestLink: contestLink,
+//         contestEnd: contestEnd,
+//         contestImage: contestImage
+//     });
+//     console.log(newContest);
+//
+//     // newContest.saveToDB();
+//
+//
+//     res.send('hello from post new-post');
+// })
+
+// TESTING =================================================
 
 router.post('/new-post', upload.single('contestImage'), (req,res) =>{
-    console.log(req.body);
+    // console.log(req.file.mimeType);
+    // console.log('file: '+req.file);
+
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
     const contestEnd = req.body.contestEnd;
-
+    const contestPath = (req.file.destination + req.file.filename)
+    const contestImage = contestPath.slice(8)
 
     const newContest = new models.Contest({
         contestName: contestName,
         contestLink: contestLink,
-        contestEnd: contestEnd
+        contestEnd: contestEnd,
+        contestImage: contestImage
     });
-    console.log(newContest);
+    // console.log(newContest);
 
-    newContest.saveToDB();
+    newContest.saveToDB()
+        .then( ()=>{
+            res.redirect('/');
+        });
 
-
-    res.send('hello from post new-post');
-})
-
-// TESTING =================================================
+});
 
 
 

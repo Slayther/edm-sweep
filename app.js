@@ -11,7 +11,23 @@ var bodyParser = require('body-parser');
 const moment = require('moment');
 const passport = require('passport');
 const session = require('express-session');
+const hbs = require('hbs');
+const helpers = require('handlebars-helpers')({
+  handlebars: hbs
+})
 require('./auth');
+global.jQuery = require('jquery');
+var $ = global.jQuery;
+// window.$ = $;
+
+let Vue = require('vue');
+// var validator = require('vue-validator');
+// var resource = require('vue-resource');
+// window.Vue = Vue;
+
+// Vue.use(validator);
+// Vue.use(resource);
+
 
 // routes ==============================================================================================================
 
@@ -70,12 +86,15 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
+    console.log(err);
+
+    res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+
 });
 
 module.exports = app;

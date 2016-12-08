@@ -8,9 +8,12 @@
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
+    "cropit": "^0.5.1",
+    "croppie": "^2.4.0",
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "express-session": "^1.14.2",
+    "handlebars-helpers": "^0.7.5",
     "hbs": "~4.0.1",
     "jquery": "^3.1.1",
     "knex": "^0.12.6",
@@ -21,7 +24,9 @@
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
     "sharp": "^0.16.2",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^3.1.8",
+    "vue": "^2.1.4",
+    "vue-crop": "^1.0.1"
   },
   "devDependencies": {
     "css-loader": "^0.26.0",

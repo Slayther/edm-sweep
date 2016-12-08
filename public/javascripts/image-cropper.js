@@ -1,7 +1,7 @@
 
 
-var crop_max_width = 400;
-var crop_max_height = 400;
+var crop_max_width = 200;
+var crop_max_height = 200;
 var jcrop_api;
 var canvas;
 var context;
@@ -21,6 +21,10 @@ function loadImage(input) {
             image = new Image();
             image.onload = validateImage;
             image.src = e.target.result;
+
+            const regex = /^data\:(.+?);/;
+            regex.test(image.src);
+            image.mimeType = RegExp.$1;
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -55,7 +59,7 @@ function validateImage() {
     if (canvas != null) {
         image = new Image();
         image.onload = restartJcrop;
-        image.src = canvas.toDataURL('image/png');
+        image.src = canvas.toDataURL(image.mimeType);
     } else restartJcrop();
 }
 
@@ -74,7 +78,8 @@ function restartJcrop() {
         onSelect: selectcanvas,
         onRelease: clearcanvas,
         boxWidth: crop_max_width,
-        boxHeight: crop_max_height
+        boxHeight: crop_max_height,
+        aspectRatio: 1
     }, function() {
         jcrop_api = this;
     });
@@ -91,11 +96,15 @@ function clearcanvas() {
 }
 
 function selectcanvas(coords) {
+    let width = Math.round(coords.w);
+    let height = Math.round(coords.h);
+    let size = Math.max(width,height);
+
     prefsize = {
         x: Math.round(coords.x),
         y: Math.round(coords.y),
-        w: Math.round(coords.w),
-        h: Math.round(coords.h)
+        w: size,
+        h: size
     };
 }
 
@@ -160,18 +169,20 @@ $("#vflipbutton").click(function(e) {
 $("#form").submit(function(e) {
     e.preventDefault();
     formData = new FormData($(this)[0]);
-    var blob = dataURLtoBlob(canvas.toDataURL('image/png'));
+    var blob = dataURLtoBlob(canvas.toDataURL(image.mimeType));
     //---Add file blob to the form data
-    formData.append("cropped_image[]", blob);
+    formData.append("contestImage", blob);
     $.ajax({
-        url: "whatever.php",
+        url: "/admin/new-post",
         type: "POST",
         data: formData,
+        // contentType: image.mimeType,
         contentType: false,
         cache: false,
         processData: false,
         success: function(data) {
-            alert("Success");
+            // alert("Success");
+            console.log('Image uploaded');
         },
         error: function(data) {
             alert("Error");

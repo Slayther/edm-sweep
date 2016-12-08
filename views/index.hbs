@@ -1,43 +1,45 @@
-<div class="jumbotron">
+<!--<img class="img-responsive" src="{{contest.0.contestImage}}" alt="{{contest.0.contestName}}" alt="">-->
+
+<link rel="stylesheet" href="/stylesheets/hover.css">
+<link rel="stylesheet" href="/stylesheets/banner.css">
+
+<!--TopBanner-->
+<div class="container text-center banner">
     <h1>Ending Soon</h1>
-    <p>{{endingSoon}}</p>
-
+    <h2>{{contest.0.contestName}}</h2>
     <div id="clockdiv">
-
-        <div>
-            <span class="days">days</span> days,
-            <span class="hours">hours</span> hours,
-            <span class="minutes">minutes</span> minutes,
-            <span class="seconds">seconds</span> seconds
-        </div>
+        <span class="days">days</span> days,
+        <span class="hours">hours</span> hours,
+        <span class="minutes">minutes</span> minutes,
+        <span class="seconds">seconds</span> seconds
+        <h3>Enter Now</h3>
     </div>
-    <a href="https://www.hive.co/contests/contest/4201/spotlight/" class="btn btn-info">Enter Now</a>
 </div>
 
 
-
-<table style="width:100%">
-    <tr>
-        <th>ID</th>
-        <th>Contest Name</th>
-        <th>Contest Link</th>
-        <th>Contest End</th>
-    </tr>
-
-    {{#each contest}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td><a href="/admin/view-contact/{{this.id}}">{{this.contestName}}</a></td>
-            <td>{{this.contestLink}}</td>
-            <td>{{this.contestEnd}}</td>
-        </tr>
-    {{/each}}
-</table>
-<br>
+{{#each contest}}
+    <!--<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">-->
+        <div class="hovereffect">
+            <img class="img-responsive" src="{{this.contestImage}}" alt="{{this.contestName}}" alt="">
+            <div class="overlay">
+                <h2>{{this.contestName}}</h2>
+                <a class="info" href="{{this.contestLink}}">Enter Here</a>
+            </div>
+        </div>
+    <!--</div>-->
+{{/each}}
 
 
 
-<!--<script src="/javascripts/test.js"></script>-->
+
+
+
+
+
+<script>
+    //inject nearest contest deadline
+    let deadline = '{{contest.0.contestEnd}}';
+</script>
 <script src="/javascripts/countdown.js"></script>
 
 

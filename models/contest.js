@@ -11,6 +11,7 @@ class Contest{
         this.contestName = data.contestName;
         this.contestLink = data.contestLink;
         this.contestEnd = data.contestEnd;
+        this.contestImage = data.contestImage;
     }
 
     saveToDB(){
@@ -18,7 +19,6 @@ class Contest{
             .returning('id')
             .insert(this)
             .then( (arrayIds) => {
-                console.log(arrayIds[0]);
                 return arrayIds[0];
             });
     }
@@ -28,7 +28,6 @@ class Contest{
             .where('id', this.id)
             .update(this)
             .then( (arrayIds) => {
-                console.log(arrayIds[0]);
                 return arrayIds[0];
             });
     }
@@ -39,7 +38,6 @@ class Contest{
             .orderBy('id', 'desc')
             .then( (contestsData) =>{
                 return contestsData.map( (contestData) =>{
-                    console.log(contestData);
                     return new Contest(contestData);
                 });
             });
@@ -52,11 +50,9 @@ class Contest{
 
         return db('Contest')
             .where('contestEnd' ,'>', now)
+            .orderBy('contestEnd', 'asc')
             .then( (contestsData) =>{
                 return contestsData.map( (contestData) =>{
-                    console.log(contestsData);
-                    console.log(contestData);
-                    console.log(now);
                     return new Contest(contestData);
                 });
             });
@@ -72,6 +68,8 @@ class Contest{
                 return contest;
             })
     }
+
+
 
 
 
