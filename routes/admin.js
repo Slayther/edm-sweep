@@ -28,27 +28,60 @@ var upload = multer({
 
 // Routes =======================================
 // Requires that user be logged in to see any content on this route
-// router.use( (req,res,next) =>{
-//     if(!req.user){
-//         console.log('redirecting to: ');
-//         res.redirect('/login');
-//         return;
-//     }
-//     next();
-// });
+router.use( (req,res,next) =>{
+    if(!req.user){
+        console.log('redirecting to: ');
+        res.redirect('/login');
+        return;
+    }
+    next();
+});
 
 
 // *GET* Routes =======================================
-
 router.get('/', (req,res) =>{
 
-    res.render('admin', {layout: './layouts/admin-layout'});
-})
+    // Promise.all( [
+    //     models.Contest.getContests(),
+    //     models.Contest.getOngoingContests(),
+    //     models.Contact.getContact()
+    // ])
+    //     .then( (array) =>{
+    //         let contests = array[0];
+    //         let ongoingContests = array[1];
+    //         let contacts = array[2];
+    //         console.log(contacts);
+    //     });
+
+
+    models.Contest.getContests()
+    // models.Contest.getOngoingContests()
+        .then( (contests) =>{
+
+            contests = contests.map( (contest) =>{
+                contest.contestEnd = new Date(contest.contestEnd);
+                return contest;
+            })
+
+            const contestCount = contests.filter( (contest) =>{
+                return contest.contestEnd > new Date();
+            }).length;
+
+            res.render('admin',{
+                layout: './layouts/admin-layout',
+                isadmin: 'active',
+                contest: contests,
+                contestCount: contestCount
+            });
+        });
+});
 
 router.get('/new-post', (req,res) => {
     console.log('test from new post')
-    res.render('new-post-working jquery plugin and multer');
-    // res.redirect('/');
+    res.render('new-post', {
+        iscontest: 'active',
+        layout: './layouts/admin-layout',
+    });
 });
 
 router.get('/edit-post/:id', (req,res) => {
@@ -56,16 +89,48 @@ router.get('/edit-post/:id', (req,res) => {
 
     models.Contest.getContestById(id)
         .then( (contest) => {
-            console.log(contest);
-            res.render('edit-post', contest)
+            res.render('edit-post', {
+                contest,
+                iscontest: 'active',
+                layout: './layouts/admin-layout',
+            })
         });
 
+});
+
+router.get('/view-post/:id', (req,res) => {
+    const id = req.params.id;
+
+    models.Contest.getContestById(id)
+        .then((contest) => {
+            res.render('view-post', {
+                contest,
+                title: 'View Post',
+                iscontest: 'active',
+                layout: './layouts/admin-layout',
+            });
+        });
 });
 
 router.get('/view-contact', (req,res) =>{
     models.Contact.getContact()
         .then( (contact) =>{
-            res.render('view-contact', {contact: contact});
+            res.render('view-contact', {
+                contact: contact,
+                iscontacts: 'active',
+                layout: './layouts/admin-layout',
+            });
+        });
+})
+
+router.get('/view-contest', (req,res) =>{
+    models.Contest.getContests()
+        .then( (contest) =>{
+            res.render('view-contest', {
+                contest: contest,
+                iscontest: 'active',
+                layout: './layouts/admin-layout',
+            });
         });
 })
 
@@ -73,10 +138,14 @@ router.get('/view-contact/:id', (req,res) =>{
     const id = req.params.id;
     models.Contact.getContactById(id)
         .then( (contact) =>{
-            console.log(contact);
-            res.render('view-contact-single', contact);
+            res.render('view-contact-single', {
+                contact: contact,
+                iscontacts: 'active',
+                layout: './layouts/admin-layout',
+
+            });
         });
-})
+});
 
 // *POST* Routes =======================================
 router.post('/edit-post/:id', (req,res) => {
@@ -84,6 +153,9 @@ router.post('/edit-post/:id', (req,res) => {
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
     const contestEnd = req.body.contestEnd;
+    console.log(contestName);
+    console.log(contestLink);
+    console.log(contestEnd);
 
 
     const editContest = new models.Contest({
@@ -92,8 +164,9 @@ router.post('/edit-post/:id', (req,res) => {
         contestLink: contestLink,
         contestEnd: contestEnd
     });
+    console.log(editContest);
     editContest.editTodB();
-    res.redirect('/admin/portal');
+    res.redirect('/admin/');
 })
 // router.post('/new-post', upload.single('contestImage'), (req,res) =>{
 // // router.post('/new-post', (req,res) =>{

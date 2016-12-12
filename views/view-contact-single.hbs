@@ -1,5 +1,43 @@
-<p>ID: {{this.id}}</p>
-<p>subject: {{this.subject}}</p>
-<p>Name: {{this.name}}</p>
-<p>Email: {{this.email}}</p>
-<p>Message: {{this.message}}</p>
+<div id="wrapper">
+
+
+    <!--Page Begin-->
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Contact Requests
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i> View SingleContacts
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> {{contact.subject}} - {{contact.name}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{contact.name}}</p>
+                            <p>{{contact.subject}}</p>
+                            <p>{{contact.email}}</p>
+                            <p>{{contact.message}}</p>
+                            <div class="text-right">
+                                <a href="/admin/view-contact">Back <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

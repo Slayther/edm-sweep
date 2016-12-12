@@ -1,36 +1,83 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/themes/material_blue.css" />
-
+<script> const contImage = '{{contest.contestImage}}'</script>
 <!--form-->
-<div class="col-md-6">
-    <h1>Edit Post</h1>
-    <form action="/admin/edit-post/{{this.id}}" method="POST">
-        <!--name-->
-        <div class="form-group">
-            <label for="contestName">Contest Name</label>
-            <input type="text" class="form-control" id="contestName" value="{{this.contestName}}" name="contestName">
-        </div>
-        <!--link-->
-        <div class="form-group">
-            <label for="contestLink">Contest Link</label>
-            <input type="text" class="form-control" id="contestLink" value="{{this.contestLink}}" name="contestLink">
-        </div>
-        <!--end date-->
-        <div class="form-group">
-            <label for="contestName">Contest End Date/Time</label>
-            <input class=" form-control flatpickr" type="text" value="{{this.contestEnd}}" name="contestEnd">
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Submit">
-        </div>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
 
-    </form>
+                    <h1>Edit Post</h1>
+                    <form action="/admin/edit-post/{{contest.id}}" enctype="multipart/form-data" method="POST" id="form">
+                        <!--name-->
+                        <div class="form-group">
+                            <label for="contestName">Contest Name</label>
+                            <input type="text" class="form-control" id="contestName" value="{{contest.contestName}}" name="contestName">
+                        </div>
+                        <!--link-->
+                        <div class="form-group">
+                            <label for="contestLink">Contest Link</label>
+                            <input type="text" class="form-control" id="contestLink" value="{{contest.contestLink}}" name="contestLink">
+                        </div>
+                        <!--end date-->
+                        <div class="form-group">
+                            <label for="contestName">Contest End Date/Time</label>
+                            <input class=" form-control flatpickr" type="text" value="{{contest.contestEnd}}" name="contestEnd">
+                        </div>
+
+                        <!--image-->
+                        <input id="file" type="file" />
+                        <h2>Image cropper (Jcrop)</h2>
+                        <button id="cropbutton" type="button">Crop</button>
+                        <button id="scalebutton" type="button">Scale</button>
+                        <button id="rotatebutton" type="button">Rotate</button>
+                        <button id="hflipbutton" type="button">H-flip</button>
+                        <button id="vflipbutton" type="button">V-flip</button>
+                        <br>
+                        <div id="views"></div>
+                        <h2>Submit form</h2>
+
+
+                        <div class="form-group">
+                            <input type="submit" value="Submit">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <h2>Current Contest Image:</h2>
+                    <img src="{{contest.contestImage}}" alt="" height="200px">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(window).load(function() {
+        $.Jcrop('#cropbox',{
+            trueSize: [500,370],
+            url: '{{contest.contestImage}}',
+        });
+    });
+</script>
+
+
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+<script src="/javascripts/jquery.Jcrop.min.js"></script>
+
+<script src="/javascripts/image-cropper.js"></script>
+
+<link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.css">
 
 <script>flatpickr(".flatpickr",{
     enableTime: true

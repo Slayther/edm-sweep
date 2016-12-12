@@ -10,7 +10,7 @@ router.get('/', (req,res) => {
     models.Contest.getOngoingContests()
         .then( (ongoingContests) => {
             // console.log(ongoingContests)
-          res.render('index2', {
+          res.render('index', {
               title: 'EDM SWEEP',
               endingSoon: endingSoon,
               contest: ongoingContests

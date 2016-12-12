@@ -1,10 +1,16 @@
-body {
-padding: 75px;
-font: 25px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+/*body {*/
+/*padding: 75px;*/
+/*font: 25px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+/*}*/
 
+.jumbotron{
+    padding:0;
+}
 a {
 color: #A3E4D7;
+}
+a:hover{
+    color: #E64AFF;
 }
 
 .color {
@@ -17,13 +23,13 @@ color: #1ABC9C;
 
 
 
-.navbar-fixed-top {
-text-transform: uppercase;
-font-family: 'Josefin Sans', sans-serif;
-font-size: 1.2em;
-min-height: 65px;
-padding: 0px 20px
-}
+/*.navbar-fixed-top {*/
+/*text-transform: uppercase;*/
+/*font-family: 'Josefin Sans', sans-serif;*/
+/*font-size: 1.2em;*/
+/*min-height: 65px;*/
+/*padding: 0px 20px*/
+/*}*/
 
 .nav-hover:after {
 content: '';
@@ -48,16 +54,61 @@ visibility: visible;
 transform: scaleX(1);
 }
 
-* {
-    box-sizing: border-box;
-    font-family: Helvetica, Arial, sans-serif;
-}
+/** {*/
+    /*box-sizing: border-box;*/
+    /*font-family: Helvetica, Arial, sans-serif;*/
+/*}*/
 
-.cropit-preview {
-    /* You can specify preview size in CSS */
-    width: 200px;
-    height: 200px;
-}
+
 #image-cropper{
     width: 200px
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.spacing{
+    padding: 10px;
+}
+
+
+/*Remove Horizontal Overflow*/
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.col-white{
+    color: white;
+}
+
+/*Extend to end of page*/
+body {
+    height:100%;
+    background: gray;
+    color: white;
+    background-image: url("/images/download big.png");
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    background-attachment: fixed;
+    /*background-position: center;*/
+
+    background-repeat:no-repeat;
+    /*background-size:100%;*/
+    /*background-position:fixed;*/
+}
+
+.center{
+    text-align: center;
+
+    /*text-align:center!important;*/
+    /*padding: 15px;*/
+}
+
+.padding{
+    padding: 10px;
+    max-height: 300px;
+    display: inline-block;
 }

@@ -46,7 +46,9 @@ class Contest{
     //Pulls all contests that have not yet expired
     static getOngoingContests(){
 
-        var now = new Date().toISOString().slice(0,16) .replace(/T/g, " ");
+        // let now = new Date().toISOString().slice(0,16) .replace(/T/g, " ");
+
+        let now = new Date().getTime();
 
         return db('Contest')
             .where('contestEnd' ,'>', now)

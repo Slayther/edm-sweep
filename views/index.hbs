@@ -1,38 +1,53 @@
 <link rel="stylesheet" href="/stylesheets/hover.css">
 <link rel="stylesheet" href="/stylesheets/banner.css">
+<!--<link rel="stylesheet" href="/stylesheets/style.css">-->
 
-<div class="container-fluid " >
+
+
+<div class="jumbotron banner center">
     <div class="row">
-        <div class="col-md-12">
-
-            <div class="container banner text-center">
-                <h1>Ending Soon</h1>
-                <h2>{{contest.0.contestName}}</h2>
-                <h3>
-                    <div id="clockdiv">
-                        <span class="days">days</span> days,
-                        <span class="hours">hours</span> hours,
-                        <span class="minutes">minutes</span> minutes,
-                        <span class="seconds">seconds</span> seconds
-                    </div>
-                </h3>
-                <p>
-                <a href="{{contest.0.contestLink}}" class="btn btn-1 white">
-                    <svg>
-                        <rect x="0" y="0" fill="none" width="100%" height="100%"/>
-                    </svg>
-                    Enter Here
-                </a>
-                </p>
-            </div>
+        <div class="col-lg-6">
+            <h1>Ending Soon</h1>
+            <h2>{{contest.0.contestName}}</h2>
+            <h3>
+                <div id="clockdiv">
+                    <span class="days"></span> days
+                    <span class="hours"></span> hours
+                    <span class="minutes"></span> minutes
+                    <span class="seconds"></span> seconds
+                </div>
+            </h3>
+            <a href="{{contest.0.contestLink}}" class="btn btn-default" target="_blank">
+                ENTER NOW!
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <img src="/images/edm-raves-logo.png" class="img-responsive padding">
         </div>
     </div>
 </div>
+<div class="center">
+    <h3>Enter Now!</h3>
+    <h4>Clicking on a contest will redirect you to the entry page</h4>
+</div>
+
+<div class="center">
+    {{#each contest}}
+        <!--<div class="col-lg-4 col-md-3 col-sm-12 center">-->
+        <a href="{{this.contestLink}}" target="_blank"><img class="img-responsive padding" src="{{this.contestImage}}" alt="" ></a>
+        <!--</div>-->
+    {{/each}}
+</div>
+
+
+
+
 
 
 
 <script>
     //inject nearest contest deadline
-    let deadline = '{{contest.0.contestEnd}}';
+    let deadline = {{contest.0.contestEnd}};
 </script>
 <script src="/javascripts/countdown.js"></script>
+
