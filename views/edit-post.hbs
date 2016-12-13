@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/flatpickr.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.2.3/themes/material_blue.css" />
-<script> const contImage = '{{contest.contestImage}}'</script>
+<!--<script> const contImage = '{{contest.contestImage}}'</script>-->
 <!--form-->
 <div id="wrapper">
     <div id="page-wrapper">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h2>Current Contest Image:</h2>
-                    <img src="{{contest.contestImage}}" alt="" height="200px">
+                    <img src="/images/uploads/contests/{{contest.contestImage}}" alt="" height="200px">
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
     $(window).load(function() {
         $.Jcrop('#cropbox',{
             trueSize: [500,370],
-            url: '{{contest.contestImage}}',
+            <!--url: '{{contest.contestImage}}',-->
         });
     });
 </script>

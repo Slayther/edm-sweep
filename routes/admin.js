@@ -6,11 +6,8 @@ const passport = require('passport');
 const router = express.Router();
 const models = require('../models');
 const path = require('path');
-// const sharp = require('sharp');
 const stream = require('stream');
-// const crop = require('cropit');
 const multer = require('multer');
-// require('cropit');
 var storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
@@ -19,7 +16,7 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         console.log(file);
         console.log(req.file);
-        cb(null, Date.now() + '.png' ) //Appending .jpg
+        cb(null, Date.now() + '.png' ) //Appending .png
     }
 })
 
@@ -40,42 +37,41 @@ var upload = multer({
 
 
 // *GET* Routes =======================================
-// router.get('/', (req,res) =>{
-//
-//     // Promise.all( [
-//     //     models.Contest.getContests(),
-//     //     models.Contest.getOngoingContests(),
-//     //     models.Contact.getContact()
-//     // ])
-//     //     .then( (array) =>{
-//     //         let contests = array[0];
-//     //         let ongoingContests = array[1];
-//     //         let contacts = array[2];
-//     //         console.log(contacts);
-//     //     });
-//
-//
-//     models.Contest.getContests()
-//     // models.Contest.getOngoingContests()
-//         .then( (contests) =>{
-//
-//             contests = contests.map( (contest) =>{
-//                 contest.contestEnd = new Date(contest.contestEnd);
-//                 return contest;
-//             })
-//
-//             const contestCount = contests.filter( (contest) =>{
-//                 return contest.contestEnd > new Date();
-//             }).length;
-//
-//             res.render('admin',{
-//                 layout: './layouts/admin-layout',
-//                 isadmin: 'active',
-//                 contest: contests,
-//                 contestCount: contestCount
-//             });
-//         });
-// });
+router.get('/', (req,res) =>{
+    //Required database queries
+    Promise.all( [
+        models.Contest.getContests(),
+        models.Contest.getOngoingContests(),
+        models.Contact.getContact()
+    ])
+        .then( (array) =>{
+            //define array output of queries
+            let contests = array[0];
+            let ongoingContests = array[1];
+            let contacts = array[2];
+
+            //filter to only show expired contests
+            contests = contests.filter( (contest) =>{
+                return contest.contestEnd < new Date();
+            })
+
+            //format date
+            contests = contests.map( (contest) =>{
+                contest.contestEnd = new Date(contest.contestEnd);
+                return contest;
+            });
+
+            //result
+            res.render('admin', {
+                layout: './layouts/admin-layout',
+                isadmin: 'active',
+                contest: contests,
+                contestCount: ongoingContests.length,
+                contactCount: contacts.length
+            });
+
+        });
+});
 
 router.get('/new-post', (req,res) => {
     console.log('test from new post')
@@ -87,9 +83,9 @@ router.get('/new-post', (req,res) => {
 
 router.get('/edit-post/:id', (req,res) => {
     const id = req.params.id;
-
     models.Contest.getContestById(id)
         .then( (contest) => {
+            console.log(contest);
             res.render('edit-post', {
                 contest,
                 iscontest: 'active',
@@ -154,45 +150,22 @@ router.post('/edit-post/:id', (req,res) => {
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
     const contestEnd = req.body.contestEnd;
-    console.log(contestName);
-    console.log(contestLink);
-    console.log(contestEnd);
+    const contestPath = (req.file.destination + req.file.filename)
+    const contestImage = req.file.filename;
+
 
 
     const editContest = new models.Contest({
         id: id,
         contestName: contestName,
         contestLink: contestLink,
-        contestEnd: contestEnd
+        contestEnd: contestEnd,
+        contestImage: contestImage
     });
     console.log(editContest);
     editContest.editTodB();
     res.redirect('/admin/');
-})
-// router.post('/new-post', upload.single('contestImage'), (req,res) =>{
-// // router.post('/new-post', (req,res) =>{
-// //     console.log(req.file.mimeType);
-//
-//     const contestName = req.body.contestName;
-//     const contestLink = req.body.contestLink;
-//     const contestEnd = req.body.contestEnd;
-//     const contestImage = req.body.contestImage;
-//
-//     const newContest = new models.Contest({
-//         contestName: contestName,
-//         contestLink: contestLink,
-//         contestEnd: contestEnd,
-//         contestImage: contestImage
-//     });
-//     console.log(newContest);
-//
-//     // newContest.saveToDB();
-//
-//
-//     res.send('hello from post new-post');
-// })
-
-// TESTING =================================================
+});
 
 router.post('/new-post', upload.single('contestImage'), (req,res) =>{
 
@@ -217,65 +190,14 @@ router.post('/new-post', upload.single('contestImage'), (req,res) =>{
 
 });
 
+// TESTING =================================================
+
+
+
 
 // ==============================================================
 
-router.get('/', (req,res) =>{
 
-    Promise.all( [
-        models.Contest.getContests(),
-        models.Contest.getOngoingContests(),
-        models.Contact.getContact()
-    ])
-        .then( (array) =>{
-            let contests = array[0];
-            let ongoingContests = array[1];
-            let contacts = array[2];
-
-            contests = contests.filter( (contest) =>{
-                return contest.contestEnd < new Date();
-            })
-
-            contests = contests.map( (contest) =>{
-                contest.contestEnd = new Date(contest.contestEnd);
-                return contest;
-            });
-
-            console.log(contests);
-            res.render('admin', {
-                layout: './layouts/admin-layout',
-                isadmin: 'active',
-                contest: contests,
-                contestCount: ongoingContests.length,
-                contactCount: contacts.length
-            });
-
-        });
-
-
-
-
-    // models.Contest.getContests()
-    // // models.Contest.getOngoingContests()
-    //     .then( (contests) =>{
-    //
-    //         contests = contests.map( (contest) =>{
-    //             contest.contestEnd = new Date(contest.contestEnd);
-    //             return contest;
-    //         })
-    //
-    //         const contestCount = contests.filter( (contest) =>{
-    //             return contest.contestEnd > new Date();
-    //         }).length;
-    //
-    //         res.render('admin',{
-    //             layout: './layouts/admin-layout',
-    //             isadmin: 'active',
-    //             contest: contests,
-    //             contestCount: contestCount
-    //         });
-    //     });
-});
 
 
 
