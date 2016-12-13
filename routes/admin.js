@@ -28,14 +28,14 @@ var upload = multer({
 
 // Routes =======================================
 // Requires that user be logged in to see any content on this route
-router.use( (req,res,next) =>{
-    if(!req.user){
-        console.log('redirecting to: ');
-        res.redirect('/login');
-        return;
-    }
-    next();
-});
+// router.use( (req,res,next) =>{
+//     if(!req.user){
+//         console.log('redirecting to: ');
+//         res.redirect('/login');
+//         return;
+//     }
+//     next();
+// });
 
 
 // *GET* Routes =======================================
@@ -233,6 +233,10 @@ router.get('/', (req,res) =>{
             let ongoingContests = array[1];
             let contacts = array[2];
 
+            contests = contests.filter( (contest) =>{
+                return contest.contestEnd < new Date();
+            })
+
             contests = contests.map( (contest) =>{
                 contest.contestEnd = new Date(contest.contestEnd);
                 return contest;
@@ -252,26 +256,26 @@ router.get('/', (req,res) =>{
 
 
 
-    // models.Contest.getContests()
-    // // models.Contest.getOngoingContests()
-    //     .then( (contests) =>{
-    //
-    //         contests = contests.map( (contest) =>{
-    //             contest.contestEnd = new Date(contest.contestEnd);
-    //             return contest;
-    //         })
-    //
-    //         const contestCount = contests.filter( (contest) =>{
-    //             return contest.contestEnd > new Date();
-    //         }).length;
-    //
-    //         res.render('admin',{
-    //             layout: './layouts/admin-layout',
-    //             isadmin: 'active',
-    //             contest: contests,
-    //             contestCount: contestCount
-    //         });
-    //     });
+    models.Contest.getContests()
+    // models.Contest.getOngoingContests()
+        .then( (contests) =>{
+
+            contests = contests.map( (contest) =>{
+                contest.contestEnd = new Date(contest.contestEnd);
+                return contest;
+            })
+
+            const contestCount = contests.filter( (contest) =>{
+                return contest.contestEnd > new Date();
+            }).length;
+
+            res.render('admin',{
+                layout: './layouts/admin-layout',
+                isadmin: 'active',
+                contest: contests,
+                contestCount: contestCount
+            });
+        });
 });
 
 
