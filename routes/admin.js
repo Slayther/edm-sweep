@@ -233,6 +233,11 @@ router.get('/', (req,res) =>{
             let ongoingContests = array[1];
             let contacts = array[2];
 
+            contests = contests.map( (contest) =>{
+                contest.contestEnd = new Date(contest.contestEnd);
+                return contest;
+            });
+
             console.log(contests);
             res.render('admin', {
                 layout: './layouts/admin-layout',
