@@ -7,7 +7,6 @@ let endingSoon = 'COUNTDOWN NYE';
 /* GET home page. */
 router.get('/', (req,res) => {
 
-    models.Counter.addToDB(1);
     models.Contest.getOngoingContests()
         .then( (ongoingContests) => {
             // console.log(ongoingContests)
