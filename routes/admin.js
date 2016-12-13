@@ -39,42 +39,42 @@ router.use( (req,res,next) =>{
 
 
 // *GET* Routes =======================================
-router.get('/', (req,res) =>{
-
-    // Promise.all( [
-    //     models.Contest.getContests(),
-    //     models.Contest.getOngoingContests(),
-    //     models.Contact.getContact()
-    // ])
-    //     .then( (array) =>{
-    //         let contests = array[0];
-    //         let ongoingContests = array[1];
-    //         let contacts = array[2];
-    //         console.log(contacts);
-    //     });
-
-
-    models.Contest.getContests()
-    // models.Contest.getOngoingContests()
-        .then( (contests) =>{
-
-            contests = contests.map( (contest) =>{
-                contest.contestEnd = new Date(contest.contestEnd);
-                return contest;
-            })
-
-            const contestCount = contests.filter( (contest) =>{
-                return contest.contestEnd > new Date();
-            }).length;
-
-            res.render('admin',{
-                layout: './layouts/admin-layout',
-                isadmin: 'active',
-                contest: contests,
-                contestCount: contestCount
-            });
-        });
-});
+// router.get('/', (req,res) =>{
+//
+//     // Promise.all( [
+//     //     models.Contest.getContests(),
+//     //     models.Contest.getOngoingContests(),
+//     //     models.Contact.getContact()
+//     // ])
+//     //     .then( (array) =>{
+//     //         let contests = array[0];
+//     //         let ongoingContests = array[1];
+//     //         let contacts = array[2];
+//     //         console.log(contacts);
+//     //     });
+//
+//
+//     models.Contest.getContests()
+//     // models.Contest.getOngoingContests()
+//         .then( (contests) =>{
+//
+//             contests = contests.map( (contest) =>{
+//                 contest.contestEnd = new Date(contest.contestEnd);
+//                 return contest;
+//             })
+//
+//             const contestCount = contests.filter( (contest) =>{
+//                 return contest.contestEnd > new Date();
+//             }).length;
+//
+//             res.render('admin',{
+//                 layout: './layouts/admin-layout',
+//                 isadmin: 'active',
+//                 contest: contests,
+//                 contestCount: contestCount
+//             });
+//         });
+// });
 
 router.get('/new-post', (req,res) => {
     console.log('test from new post')
@@ -219,6 +219,55 @@ router.post('/new-post', upload.single('contestImage'), (req,res) =>{
 });
 
 
+// ==============================================================
+
+router.get('/', (req,res) =>{
+
+    Promise.all( [
+        models.Contest.getContests(),
+        models.Contest.getOngoingContests(),
+        models.Contact.getContact()
+    ])
+        .then( (array) =>{
+            let contests = array[0];
+            let ongoingContests = array[1];
+            let contacts = array[2];
+
+            console.log(contests);
+            res.render('admin', {
+                layout: './layouts/admin-layout',
+                isadmin: 'active',
+                contest: contests,
+                contestCount: ongoingContests.length,
+                contactCount: contacts.length
+            });
+
+        });
+
+
+
+
+    // models.Contest.getContests()
+    // // models.Contest.getOngoingContests()
+    //     .then( (contests) =>{
+    //
+    //         contests = contests.map( (contest) =>{
+    //             contest.contestEnd = new Date(contest.contestEnd);
+    //             return contest;
+    //         })
+    //
+    //         const contestCount = contests.filter( (contest) =>{
+    //             return contest.contestEnd > new Date();
+    //         }).length;
+    //
+    //         res.render('admin',{
+    //             layout: './layouts/admin-layout',
+    //             isadmin: 'active',
+    //             contest: contests,
+    //             contestCount: contestCount
+    //         });
+    //     });
+});
 
 
 

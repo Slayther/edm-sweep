@@ -19,7 +19,6 @@ class Contact{
             .returning('id')
             .insert(this)
             .then( (arrayIds) => {
-                console.log(arrayIds[0]);
                 return arrayIds[0];
             });
     }
@@ -29,7 +28,6 @@ class Contact{
             .where('id', this.id)
             .update(this)
             .then( (arrayIds) => {
-                console.log(arrayIds[0]);
                 return arrayIds[0];
             });
     }
@@ -39,7 +37,6 @@ class Contact{
             .orderBy('id', 'desc')
             .then( (contactsData) =>{
                 return contactsData.map( (contactData) =>{
-                    console.log(contactData);
                     return new Contact(contactData);
                 });
             });
