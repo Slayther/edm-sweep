@@ -13,7 +13,7 @@ const multer = require('multer');
 var storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
-        cb(null, './public/images/uploads/contests/')
+        cb(null, '/home/amazecpk/web/edm-sweep/public/images/uploads/contests/')
     },
     filename: function (req, file, cb) {
         console.log(file);
