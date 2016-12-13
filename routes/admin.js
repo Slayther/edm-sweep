@@ -198,7 +198,7 @@ router.post('/new-post', upload.single('contestImage'), (req,res) =>{
 
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
-    const contestEnd = req.body.contestEnd;
+    const contestEnd = Date.parse(req.body.contestEnd);
     const contestPath = (req.file.destination + req.file.filename)
     const contestImage = req.file.filename;
 
@@ -208,7 +208,7 @@ router.post('/new-post', upload.single('contestImage'), (req,res) =>{
         contestEnd: contestEnd,
         contestImage: contestImage
     });
-    // console.log(newContest);
+    console.log(newContest);
 
     newContest.saveToDB()
         .then( ()=>{
