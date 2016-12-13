@@ -5,6 +5,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const models = require('../models');
+const path = require('path');
 // const sharp = require('sharp');
 const stream = require('stream');
 // const crop = require('cropit');
@@ -13,7 +14,7 @@ const multer = require('multer');
 var storage = multer.diskStorage({
 
     destination: function (req, file, cb) {
-        cb(null, '/home/amazecpk/web/edm-sweep/public/images/uploads/contests/')
+        cb(null, path.join(__dirname,'/../public/images/uploads/contests/'));
     },
     filename: function (req, file, cb) {
         console.log(file);
@@ -194,14 +195,12 @@ router.post('/edit-post/:id', (req,res) => {
 // TESTING =================================================
 
 router.post('/new-post', upload.single('contestImage'), (req,res) =>{
-    // console.log(req.file.mimeType);
-    // console.log('file: '+req.file);
 
     const contestName = req.body.contestName;
     const contestLink = req.body.contestLink;
     const contestEnd = req.body.contestEnd;
     const contestPath = (req.file.destination + req.file.filename)
-    const contestImage = contestPath.slice(8)
+    const contestImage = req.file.filename;
 
     const newContest = new models.Contest({
         contestName: contestName,
