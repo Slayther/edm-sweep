@@ -256,26 +256,26 @@ router.get('/', (req,res) =>{
 
 
 
-    models.Contest.getContests()
-    // models.Contest.getOngoingContests()
-        .then( (contests) =>{
-
-            contests = contests.map( (contest) =>{
-                contest.contestEnd = new Date(contest.contestEnd);
-                return contest;
-            })
-
-            const contestCount = contests.filter( (contest) =>{
-                return contest.contestEnd > new Date();
-            }).length;
-
-            res.render('admin',{
-                layout: './layouts/admin-layout',
-                isadmin: 'active',
-                contest: contests,
-                contestCount: contestCount
-            });
-        });
+    // models.Contest.getContests()
+    // // models.Contest.getOngoingContests()
+    //     .then( (contests) =>{
+    //
+    //         contests = contests.map( (contest) =>{
+    //             contest.contestEnd = new Date(contest.contestEnd);
+    //             return contest;
+    //         })
+    //
+    //         const contestCount = contests.filter( (contest) =>{
+    //             return contest.contestEnd > new Date();
+    //         }).length;
+    //
+    //         res.render('admin',{
+    //             layout: './layouts/admin-layout',
+    //             isadmin: 'active',
+    //             contest: contests,
+    //             contestCount: contestCount
+    //         });
+    //     });
 });
 
 
