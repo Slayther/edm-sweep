@@ -4,12 +4,12 @@
 
 
 
-<div class="jumbotron banner center">
+<div class="jumbotron banner center bottom-shadow">
     <div class="row">
         <div class="col-lg-6">
-            <h1>Ending Soon</h1>
-            <h2>{{contest.0.contestName}}</h2>
-            <h3>
+            <h1 class="text-shadow">Ending Soon</h1>
+            <h2 class="text-shadow">{{contest.0.contestName}}</h2>
+            <h3 class="text-shadow">
                 <div id="clockdiv">
                     <span class="days"></span> days
                     <span class="hours"></span> hours
@@ -27,14 +27,18 @@
     </div>
 </div>
 <div class="center">
-    <h3>Enter Now!</h3>
-    <h4>Clicking on a contest will redirect you to the entry page</h4>
+    <h3 class="text-shadow">Enter Now!</h3>
+    <h4 class="text-shadow">Clicking on a contest will redirect you to the entry page</h4>
 </div>
 
 <div class="center">
     {{#each contest}}
         <!--<div class="col-lg-4 col-md-3 col-sm-12 center">-->
-        <a href="{{this.contestLink}}" target="_blank"><img class="img-responsive padding" src="{{this.contestImage}}" alt="" ></a>
+        <a href="{{this.contestLink}}" target="_blank">
+            <div class="padding">
+                <img class="img-responsive" src="{{this.contestImage}}" alt="" >
+            </div>
+        </a>
         <!--</div>-->
     {{/each}}
 </div>

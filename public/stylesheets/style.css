@@ -98,6 +98,8 @@ body {
     background-repeat:no-repeat;
     /*background-size:100%;*/
     /*background-position:fixed;*/
+
+    line-height: initial;
 }
 
 .center{
@@ -109,6 +111,24 @@ body {
 
 .padding{
     padding: 10px;
-    max-height: 300px;
+    /*max-height: 300px;*/
     display: inline-block;
+}
+
+.padding img{
+    max-height: 300px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand{
+    padding-top: 10px;
+}
+
+.text-shadow{
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.76);
+}
+
+.bottom-shadow{
+    box-shadow: 0px 0px 10px black;
 }
