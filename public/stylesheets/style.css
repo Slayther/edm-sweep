@@ -132,3 +132,14 @@ body {
 .bottom-shadow{
     box-shadow: 0px 0px 10px black;
 }
+
+.divider {
+    height: 1px;
+    width:30%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    alignment: center;
+    margin: auto;
+}

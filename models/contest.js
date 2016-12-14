@@ -68,8 +68,8 @@ class Contest{
                 const contestData = contestsData[0];
                 let contest = new Contest(contestData);
                 return contest;
-            })
-    }
+            });
+    };
 
 
 
