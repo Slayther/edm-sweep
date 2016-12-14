@@ -122,9 +122,16 @@ router.get('/view-contact', (req,res) =>{
 
 router.get('/view-contest', (req,res) =>{
     models.Contest.getContests()
-        .then( (contest) =>{
+        .then( (contests) =>{
+
+            //format date
+            contests = contests.map( (contests) =>{
+                contests.contestEnd = new Date(contests.contestEnd);
+                return contests;
+            });
+
             res.render('view-contest', {
-                contest: contest,
+                contest: contests,
                 iscontest: 'active',
                 layout: './layouts/admin-layout',
             });
