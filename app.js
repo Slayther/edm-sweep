@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // use routes ==========================================================================================================
 
 app.use('/', index);
-app.use('/social-media', isAdmin,socialMedia);
+app.use('/social-media',socialMedia);
 app.use('/contact-us', contactUs);
 app.use('/login', login);
 app.use('/admin', isAdmin, admin);
