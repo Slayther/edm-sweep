@@ -18,16 +18,9 @@ const helpers = require('handlebars-helpers')({
 require('./auth');
 global.jQuery = require('jquery');
 var $ = global.jQuery;
-// window.$ = $;
 
-let Vue = require('vue');
-// var validator = require('vue-validator');
-// var resource = require('vue-resource');
-// window.Vue = Vue;
-
-// Vue.use(validator);
-// Vue.use(resource);
-
+// middlewares ============================================================================================
+const isAdmin = require('./middleware/is-admin');
 
 // routes ==============================================================================================================
 
@@ -67,10 +60,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // use routes ==========================================================================================================
 
 app.use('/', index);
-app.use('/social-media', socialMedia);
+app.use('/social-media', isAdmin,socialMedia);
 app.use('/contact-us', contactUs);
 app.use('/login', login);
-app.use('/admin', admin);
+app.use('/admin', isAdmin, admin);
 
 
 

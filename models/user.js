@@ -16,6 +16,7 @@ class User{
                 .digest('hex');
         }
         this.password = data.password;          //store password
+        this.role = data.role;
     }
 
     isPasswordValid(password) {

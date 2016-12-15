@@ -7,6 +7,7 @@ let endingSoon = 'COUNTDOWN NYE';
 /* GET home page. */
 router.get('/', (req,res) => {
 
+    console.log(req.user);
     models.Contest.getOngoingContests()
         .then( (ongoingContests) => {
             // console.log(ongoingContests)
