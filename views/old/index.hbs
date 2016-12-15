@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/stylesheets/hover.css">
+<link rel="stylesheet" href="/stylesheets/banner.css">
+<!--<link rel="stylesheet" href="/stylesheets/style.css">-->
+
+
+
+
+<div class="jumbotron banner center">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="text-shadow">Ending Soon</h1>
+            <h2 class="uppercase text-shadow">{{contest.0.contestName}}</h2>
+            <h3 class="text-shadow">
+                <div id="clockdiv">
+                    <span class="days"></span> days
+                    <span class="hours"></span> hours
+                    <span class="minutes"></span> minutes
+                    <span class="seconds"></span> seconds
+                </div>
+            </h3>
+            <a href="{{contest.0.contestLink}}" class="btn btn-default" target="_blank">
+                ENTER NOW!
+            </a>
+        </div>
+        <div class="col-lg-6 center">
+            <img src="/images/edm-raves-logo.png" class="img-responsive center-img">
+        </div>
+    </div>
+</div>
+<div class="center">
+    <h3>Enter Now!</h3>
+    <h4>Clicking on a contest will redirect you to the entry page</h4>
+</div>
+
+
+
+
+
+
+<div class="center">
+    {{#each contest}}
+        <!--<div class="">-->
+        <a href="{{this.contestLink}}" target="_blank"><img class="contest-effects" src="/images/uploads/contests/{{this.contestImage}}" alt="" ></a>
+        <!--</div>-->
+
+    {{/each}}
+</div>
+
+
+
+
+<br>
+<div class="divider center"></div>
+<br>
+
+
+
+
+
+<script>
+    //inject nearest contest deadline
+    let deadline = {{contest.0.contestEnd}};
+</script>
+<script src="/javascripts/countdown.js"></script>
+

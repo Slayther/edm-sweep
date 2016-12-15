@@ -1,0 +1,151 @@
+/*body {*/
+/*padding: 75px;*/
+/*font: 25px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+/*}*/
+
+.jumbotron{
+    padding:0;
+}
+a {
+color: #A3E4D7;
+}
+a:hover{
+    color: #E64AFF;
+}
+h2.uppercase{
+    text-transform: uppercase;
+}
+
+.color {
+background-color: #EAEDED;
+}
+
+.link {
+color: #1ABC9C;
+}
+
+
+
+/*.navbar-fixed-top {*/
+/*text-transform: uppercase;*/
+/*font-family: 'Josefin Sans', sans-serif;*/
+/*font-size: 1.2em;*/
+/*min-height: 65px;*/
+/*padding: 0px 20px*/
+/*}*/
+
+.nav-hover:after {
+content: '';
+position: absolute;
+height: 2px;
+width: 100%;
+left: 0;
+bottom: 0;
+visibility: hidden;
+background-color: #A3E4D7;
+-webkit-transition: all .1s ease;
+transition: all 0.3s ease;
+-webkit-transform: scaleX(0);
+-ms-transform: scaleX(0);
+transform: scaleX(0);
+}
+
+.nav-hover:hover:after {
+visibility: visible;
+-webkit-transform: scaleX(1);
+-ms-transform: scaleX(1);
+transform: scaleX(1);
+}
+
+/** {*/
+    /*box-sizing: border-box;*/
+    /*font-family: Helvetica, Arial, sans-serif;*/
+/*}*/
+
+
+#image-cropper{
+    width: 200px
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.spacing{
+    padding: 10px;
+}
+
+
+/*Remove Horizontal Overflow*/
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.col-white{
+    color: white;
+}
+
+/*Extend to end of page*/
+body {
+    height:100%;
+    background: gray;
+    color: white;
+    background-image: url("/images/download big.png");
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    background-attachment: fixed;
+    /*background-position: center;*/
+
+    background-repeat:no-repeat;
+    /*background-size:100%;*/
+    /*background-position:fixed;*/
+}
+
+.center{
+    /*text-align: center;*/
+
+    text-align:center!important;
+    position: relative;
+    /*display: inline-block;*/
+    /*padding: 15px;*/
+}
+
+.center-img{
+    display: inline-block;
+}
+
+
+.divider {
+    height: 1px;
+    width:30%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    alignment: center;
+    margin: auto;
+}
+
+.contest-effects{
+    border-radius: 30px;
+    border:3px solid black;
+
+    /*padding: 10px;*/
+    max-height: 300px;
+    display: inline-block;
+    margin:10px;
+    padding: 0px;
+    /*margin: 10px;*/
+    /*display: inline-block;*/
+    /*text-align:center!important;*/
+    /*position: relative;*/
+    /*text-align:center!important;*/
+
+
+}
+
+.text-shadow{
+    text-shadow: 2px 2px #000000;
+}

@@ -1,94 +1,50 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
     <head>
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>EDMSWEEP | {{tile}}</title>
-
-        <!--jquery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!--bootstrap css-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!--bootstrap theme-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <!--bootstrap js-->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!--font awesome-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EDMSWEEP   |   {{titile}}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/superhero/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" href="/stylesheets/style.css">
-
-
-
     </head>
+
     <body>
 
-
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-
-                    <!--Toggle Mobile View Nav Bar Button-->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!--/-->
-                    <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="logo.png" width="187px"></a>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header"><a class="navbar-brand" href="/"><img src="/images/logo-white.png" alt="logo.png" width="187px"></a>
+                    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
-                        <li><a href="/">Contests</a></li>
-                        <li><a href="/social-media">Social Media</a></li>
-                        <li><a href="/contact-us">Contact Us</a></li>
-
-                    </ul>
-
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="http://www.facebook.com/Edmrave"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-                        <li><a href="http://www.twitter.com/edmbayarea"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-                        <li><a href="http://www.instagram.com/edmraves/"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
+                        <li role="presentation"><a href="/contact-us">CONTACT US</a></li>
+                        <li role="presentation"><a href="http://www.facebook.com/Edmrave"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+                        <li role="presentation"><a href="http://www.twitter.com/edmbayarea"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+                        <li role="presentation"><a href="http://www.instagram.com/edmraves/"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
+
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div>
+            </div>
         </nav>
 
 
-        <br>
-        <br>
-        <br>
-
         {{{body}}}
 
-
-
-        <hr>
-
-        <footer>
-            <div class="row">
-                <div class="col-md-6">
-                    <p> &copy; 2016 EDMSWEEP</p>
-                </div>
-                <div class="col-md-4">
-                    <a href="https://www.facebook.com" style="background-color:#3b5998; color:white;" class="btn btn-social btn-facebook">
-                        <span class="fa fa-facebook"></span> Follow us on Facebook
-                    </a>
+        <footer class="site-footer">
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>EDMSWEEP © 2016</h5></div>
+                    <div class="col-sm-6 social-icons"><a href="http://www.facebook.com/Edmrave" target="_blank"><i class="fa fa-facebook"></i></a><a href="http://www.twitter.com/edmbayarea" target="_blank"><i class="fa fa-twitter"></i></a><a href="http://www.instagram.com/edmraves/" target="_blank"><i class="fa fa-instagram"></i></a></div>
                 </div>
             </div>
-
-            <script src="/javascripts/analytics.js"></script>
-
-
         </footer>
-
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
+
 </html>

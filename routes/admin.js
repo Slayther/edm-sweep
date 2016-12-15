@@ -123,9 +123,16 @@ router.get('/view-contact', (req,res) =>{
 
 router.get('/view-contest', (req,res) =>{
     models.Contest.getContests()
-        .then( (contest) =>{
+        .then( (contests) =>{
+
+            //format date
+            contests = contests.map( (contests) =>{
+                contests.contestEnd = new Date(contests.contestEnd);
+                return contests;
+            });
+
             res.render('view-contest', {
-                contest: contest,
+                contest: contests,
                 iscontest: 'active',
                 layout: './layouts/admin-layout',
             });
@@ -168,28 +175,39 @@ router.post('/edit-post/:id', (req,res) => {
     res.redirect('/admin/');
 });
 
-router.post('/new-post', upload.single('contestImage'), (req,res) =>{
+router.post('/new-post', function(req,res,next) {
+        try {
+            upload.single('contestImage')(req, res, next);
 
-    const contestName = req.body.contestName;
-    const contestLink = req.body.contestLink;
-    const contestEnd = Date.parse(req.body.contestEnd);
-    const contestPath = (req.file.destination + req.file.filename)
-    const contestImage = req.file.filename;
+        }
+        catch (ex) {
+            next();
+        }
 
-    const newContest = new models.Contest({
-        contestName: contestName,
-        contestLink: contestLink,
-        contestEnd: contestEnd,
-        contestImage: contestImage
-    });
-    console.log(newContest);
+    },
+    (req,res) =>{
 
-    newContest.saveToDB()
-        .then( ()=>{
-            res.redirect('/');
+        const contestName = req.body.contestName;
+        const contestLink = req.body.contestLink;
+        const contestEnd = Date.parse(req.body.contestEnd);
+        const contestPath = (req.file.destination + req.file.filename)
+        const contestImage = req.file.filename;
+
+        const newContest = new models.Contest({
+            contestName: contestName,
+            contestLink: contestLink,
+            contestEnd: contestEnd,
+            contestImage: contestImage
         });
+        console.log(newContest);
 
-});
+        newContest.saveToDB()
+            .then( ()=>{
+                res.redirect('/');
+            });
+
+    }
+);
 
 // TESTING =================================================
 

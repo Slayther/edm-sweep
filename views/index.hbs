@@ -1,96 +1,45 @@
-<link rel="stylesheet" href="/stylesheets/hover.css">
-<link rel="stylesheet" href="/stylesheets/banner.css">
-<!--<link rel="stylesheet" href="/stylesheets/style.css">-->
 
 
+    <div class="jumbotron hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-0 col-md-4 col-md-push-7 phone-preview center-img img-responsive right"><img src="/images/edm-raves-logo.png"></div>
+                <div class="col-md-6 col-md-pull-3 get-it left">
+                    <h1 class="text-center">ENDING SOON</h1>
+                    <h2 class="text-center">{{contest.0.contestName}}</h2>
+                    <h3 class="text-center">
+                        <div id="clockdiv">
+                            <span class="days"></span> days
+                            <span class="hours"></span> hours
+                            <span class="minutes"></span> minutes
+                            <span class="seconds"></span> seconds
+                        </div>
+                    </h3>
 
-<div class="jumbotron banner center bottom-shadow">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1 class="text-shadow">Ending Soon</h1>
-            <h2 class="text-shadow">{{contest.0.contestName}}</h2>
-            <h3 class="text-shadow">
-                <div id="clockdiv">
-                    <span class="days"></span> days
-                    <span class="hours"></span> hours
-                    <span class="minutes"></span> minutes
-                    <span class="seconds"></span> seconds
+
+                    <!--<h3 class="text-center">END DATE</h3>-->
+                    <p class="text-center"><a class="btn btn-primary btn-lg" role="button" href="{{contest.0.contestLink}}" target="_blank"> ENTER NOW</a></p>
                 </div>
-            </h3>
-            <a href="{{contest.0.contestLink}}" class="btn btn-default" target="_blank">
-                ENTER NOW!
-            </a>
-        </div>
-        <div class="col-lg-6">
-            <img src="/images/edm-raves-logo.png" class="img-responsive padding">
-        </div>
-    </div>
-</div>
-<div class="center">
-    <h3 class="text-shadow">Enter Now!</h3>
-    <h4 class="text-shadow">Clicking on a contest will redirect you to the entry page</h4>
-</div>
-
-<div class="center">
-    {{#each contest}}
-        <!--<div class="col-lg-4 col-md-3 col-sm-12 center">-->
-        <a href="{{this.contestLink}}" target="_blank">
-            <div class="padding">
-                <img class="img-responsive" src="/images/uploads/contests/{{this.contestImage}}" alt="" >
             </div>
-        </a>
-        <!--</div>-->
-    {{/each}}
-</div>
-
-<br>
-<div class="divider center"></div>
-<br>
-
-<div class="wrapper">
-    <div class="container">
-        <div class="col-lg-12 center">
-            <h3>Have Questions?</h3>
-            <h1>Contact Us</h1>
-            <form action="/contact">
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <select class="form-control" id="subject" name="subject">
-                        <option>Contest Submission</option>
-                        <option>Website Advertising</option>
-                        <option>Social Media Advertising</option>
-                        <option>General Contact</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="text" class="form-control" name="email" placeholder="email">
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <input type="text" class="form-control" name="message" placeholder="message">
-                </div>
-
-                <input type="submit" value="Submit" class="btn btn-primary" style="margin-left: 0px;">
-
-            </form>
+        </div>
+    </div>
+    <section class="contests">
+        <h2 class="text-center">Current Contests</h2>
+    <p class="text-center">Clicking on a contest will direct you to the entry page</p>
+    <hr>
+    <br>
+    </section>
+    <article>
+        <div class="container-fluid">
+            {{#each contest}}
+                <div class="col-md-4 col-sm-12 center"><a href="{{this.contestLink}}" target="_blank"><img class="contest-images" src="/images/uploads/contests/{{this.contestImage}}" alt="" height="300px"></a></div>
+            {{/each}}
         </div>
 
-    </div>
-</div>
+    </article>
 
-
-
-
-
-
-<script>
-    //inject nearest contest deadline
-    let deadline = {{contest.0.contestEnd}};
-</script>
-<script src="/javascripts/countdown.js"></script>
-
+    <script>
+        //inject nearest contest deadline
+        let deadline = {{contest.0.contestEnd}};
+    </script>
+    <script src="/javascripts/countdown.js"></script>
